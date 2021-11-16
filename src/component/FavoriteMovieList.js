@@ -1,14 +1,21 @@
 import React from "react";
 
 const FavortieMovieList = (props) => {
-    const FavCom = props.favouriteComponent;
     return (
         <>
             {props.movies.map((movie, index) => (
                 <div className="image-container d-flex m-2">
-                    <img className="favorit" src={movie.Poster} alt="movie" onClick={() => props.openDetail(movie.imdbID) }></img>
-                    <div onClick={() => props.handleFavouriteClick(movie)} className="overlay d-flex align-items-center justify-content-center">
-                        <FavCom />
+                    <div className="favorit">
+                    <img src={movie.Poster} alt="movie" onClick={() => props.openDetail(movie.imdbID) }></img>
+                    <div className="title">
+                        <p>{movie.Title}</p>
+                    </div>
+                    </div>
+                    
+                    <div className="overlayFavorite">
+                        
+                        <button onClick={() => props.openDetail(movie.imdbID) } > Details </button>
+                        <button onClick={() => props.handleFavouriteClick(movie)} > Remove </button>
                     </div> 
                 </div>
             ))}

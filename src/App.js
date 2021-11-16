@@ -2,17 +2,16 @@ import React, {useEffect, useState} from 'react'
 
 import './App.css'
 import MovieList from './component/MovieList';
-import MovieListHeading from './component/MovieListHeading';
 import SearchBox from './component/SearchBoc';
 import AddFavorite from './component/AddFavorite';
 import FavortieMovieList from './component/FavoriteMovieList';
-import RemoveFavorite from './component/RemoveFavorite';
-import Popup from './component/Popup';
+import Details from './component/Details';
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
   const [favourite, setFavourite] = useState([]);
+  const [recomendation, setRecomendation] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
   const [selected, setSelected] = useState({});
 
 
@@ -33,12 +32,27 @@ function App() {
     getMoviesRequest(searchValue);
   }, [searchValue]);
 
+
+  useEffect( async () => { 
+    const urlRecomendation = `http://www.omdbapi.com/?s=One Piece Film&apikey=37234941`
+    const response = await fetch(urlRecomendation);
+
+    const responseJson = await response.json();
+    console.log(responseJson);
+    if(responseJson.Search){
+      setRecomendation(responseJson.Search)
+    }
+  }, []);
+
+
   useEffect(()=> {
     const movieFavorite = JSON.parse(
       localStorage.getItem('react-movie-app-favorite')
     );
 
-    setFavourite(movieFavorite)
+    if(movieFavorite){
+      setFavourite(movieFavorite);
+    }
   }, [])
 
   const saveToLocalStorage = (items) => {
@@ -63,13 +77,13 @@ function App() {
 
 
   const openDetail = async (id) => {
-    const urlPopup = `http://www.omdbapi.com/?i=${id}&apikey=37234941`
-    const response = await fetch(urlPopup);
+    const urlDetail = `http://www.omdbapi.com/?i=${id}&apikey=37234941`
+    const response = await fetch(urlDetail);
 
-    const responsePopupJson = await response.json();
-    console.log('selected', responsePopupJson);
-    if(responsePopupJson){
-      setSelected(responsePopupJson)
+    const responseDetailJson = await response.json();
+    console.log('selected', responseDetailJson);
+    if(responseDetailJson){
+      setSelected(responseDetailJson)
     }
   }
 
@@ -83,25 +97,25 @@ function App() {
   return (
     <div className='container'>
       <div className="col-12" className="logo"><h1>OMDB MOVIES</h1></div>
-      <div className="row">
-        <div className ="col-9 kiri">
-          <MovieListHeading heading="Movies"/>
+      <div className="row content">
+        <div className ="col-9 movielist">
+         <h4>Movie List</h4>
           <SearchBox setSearchValue={setSearchValue}  />
-          <div className="row">
-            <MovieList movies={movies} favouriteComponent={AddFavorite} handleFavouriteClick={addFavouriteMovie} openDetail={openDetail} />
+          <div className="row searchmovielist">
+            <MovieList movies={movies} recomendation={recomendation} favouriteComponent={AddFavorite} handleFavouriteClick={addFavouriteMovie} openDetail={openDetail} />
           </div>
         </div>
         
         <div className ="col-3 favorit">
-          <div className="d-flex align-items-center mt-4 mb-4">
-            <MovieListHeading heading="Favourite"/>
+          <div className="headwatchlist">
+            <h5>My Watch List</h5>
           </div>
           <div className="row">
-            <FavortieMovieList movies={favourite} favouriteComponent={RemoveFavorite} handleFavouriteClick={RemoveFavoriteMovie}  openDetail={openDetail} />
+            <FavortieMovieList movies={favourite} handleFavouriteClick={RemoveFavoriteMovie}  openDetail={openDetail} />
           </div>
             </div>
         </div>
-        {(typeof selected.Title != "undefined")? <Popup selected={selected} closeDetail={closeDetail} /> : false }
+        {(typeof selected.Title != "undefined")? <Details selected={selected} closeDetail={closeDetail} /> : false }
     </div>
   
   );
