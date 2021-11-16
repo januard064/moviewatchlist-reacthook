@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# WathcList Movie Web using React Hook
+This project is a web application that is used to find movies of interest and add them to the watch list. The data used is omdb movie data which is accessed through the API. For the design itself, react jx is used with the concept of react hook for state management.
+In this application the user can search for movies, view details of movies, add movies to the watch list, and finally delete movies from the watch list.
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
