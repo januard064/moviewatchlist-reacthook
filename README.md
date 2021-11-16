@@ -3,7 +3,7 @@ This project is a web application that is used to find movies of interest and ad
 In this application the user can search for movies, view details of movies, add movies to the watch list, and finally delete movies from the watch list.
 
 ##Demo
-https://user-images.githubusercontent.com/59024388/142018843-ed51e40d-3df7-41ff-866a-03c7352b5b8f.mp4
+https://user-images.githubusercontent.com/59024388/142018843-ed51e40d-3df7-41ff-866a-03c7352b5b8f.mp4 
 
 ## Getting Started with Create React App
 
