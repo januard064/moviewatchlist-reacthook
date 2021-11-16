@@ -2,7 +2,7 @@
 This project is a web application that is used to find movies of interest and add them to the watch list. The data used is omdb movie data which is accessed through the API. For the design itself, react jx is used with the concept of react hook for state management.
 In this application the user can search for movies, view details of movies, add movies to the watch list, and finally delete movies from the watch list.
 
-##Demo
+## Demo
 https://user-images.githubusercontent.com/59024388/142018843-ed51e40d-3df7-41ff-866a-03c7352b5b8f.mp4 
 
 ## Getting Started with Create React App
